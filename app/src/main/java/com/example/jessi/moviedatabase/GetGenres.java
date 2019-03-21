@@ -59,11 +59,11 @@ public class GetGenres extends AsyncTask<Void, Void, GenreModel> {
 
     @Override
     protected void onPostExecute(GenreModel genres) {
-        delegate.proccessFinish(genres);
+        delegate.processFinish(genres);
     }
 
     public interface AsyncResponse{
-        void proccessFinish(GenreModel genres);
+        void processFinish(GenreModel genres);
     }
 
 }

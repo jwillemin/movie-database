@@ -22,9 +22,10 @@ public class MovieListActivity extends AppCompatActivity implements GetPopularMo
     ArrayList<Result> results;
     ListView movieList;
     SwipeRefreshLayout swipeRefreshLayout = null;
+    //paging variables
     boolean moviesLoading = false;
-    int preLast = 0;
     boolean listFull = false;
+    int preLast = 0;
     int page = 1;
 
     @Override
@@ -42,6 +43,10 @@ public class MovieListActivity extends AppCompatActivity implements GetPopularMo
     protected void onStart() {
         super.onStart();
         results = new ArrayList<>();
+        preLast = 0;
+        page = 1;
+        setSwipeRefreshListener();
+        setPagingListener();
     }
 
     public void fetchMovies(){
@@ -67,19 +72,15 @@ public class MovieListActivity extends AppCompatActivity implements GetPopularMo
         movieList = findViewById(R.id.list_movies);
         movieList.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
-
-            }
+            public void onScrollStateChanged(AbsListView view, int scrollState) { }
 
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
                 final int lastItem = firstVisibleItem + visibleItemCount;
                 if (lastItem >= totalItemCount - 10){
-                    if (preLast != lastItem){
-                        if (!moviesLoading && !listFull){
-                            moviesLoading = true;
-                            fetchMovies();
-                        }
+                    if (preLast != lastItem && !moviesLoading && !listFull){
+                        moviesLoading = true;
+                        fetchMovies();
                     }
                     preLast = lastItem;
                 }
@@ -88,7 +89,7 @@ public class MovieListActivity extends AppCompatActivity implements GetPopularMo
     }
 
     @Override
-    public void proccessFinish(PopularMoviesModel popularMovies) {
+    public void processFinish(PopularMoviesModel popularMovies) {
         for (int i = 0; i < popularMovies.getResults().length; i++){
             results.add(popularMovies.getResults()[i]);
         }

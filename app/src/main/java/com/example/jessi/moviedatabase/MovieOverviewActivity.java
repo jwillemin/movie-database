@@ -51,7 +51,7 @@ public class MovieOverviewActivity extends AppCompatActivity implements GetGenre
     }
 
     @Override
-    public void proccessFinish(GenreModel genres) {
+    public void processFinish(GenreModel genres) {
         if (genreList == null){
             genreList = new ArrayList<>();
         } else genreList.clear();

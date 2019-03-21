@@ -63,10 +63,10 @@ public class GetPopularMovies extends AsyncTask<Void, Void, PopularMoviesModel> 
 
     @Override
     protected void onPostExecute(PopularMoviesModel popularMovies) {
-        delegate.proccessFinish(popularMovies);
+        delegate.processFinish(popularMovies);
     }
 
     public interface AsyncResponse{
-        void proccessFinish(PopularMoviesModel popularMovies);
+        void processFinish(PopularMoviesModel popularMovies);
     }
 }
