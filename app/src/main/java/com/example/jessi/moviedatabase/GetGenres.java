@@ -12,26 +12,22 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class GetPopularMovies extends AsyncTask<Void, Void, PopularMoviesModel> {
+public class GetGenres extends AsyncTask<Void, Void, GenreModel> {
 
-    public static final String POPULAR_MOVIES_URL = "https://api.themoviedb.org/3/movie/popular?api_key=401aa5eca4619ade84c90fd075e22588";
-    public static final String PAGE_STRING = "&page=";
+    public static final String GENRE_LIST_URL = "https://api.themoviedb.org/3/genre/movie/list?api_key=401aa5eca4619ade84c90fd075e22588";
 
-    public AsyncResponse delegate = null;
-    int page;
+    public GetGenres.AsyncResponse delegate = null;
 
-    public GetPopularMovies(int page) {
-        this.page = page;
-    }
+    public GetGenres() { }
 
     @Override
-    protected PopularMoviesModel doInBackground(Void... voids) {
+    protected GenreModel doInBackground(Void... voids) {
 
         String response = null;
-        PopularMoviesModel popularMovies = new PopularMoviesModel();
+        GenreModel genreModel = new GenreModel();
 
         try{
-            URL url = new URL(POPULAR_MOVIES_URL + PAGE_STRING + page);
+            URL url = new URL(GENRE_LIST_URL);
 
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.connect();
@@ -46,7 +42,7 @@ public class GetPopularMovies extends AsyncTask<Void, Void, PopularMoviesModel> 
                 }
 
                 response = builder.toString();
-                popularMovies = new Gson().fromJson(response, PopularMoviesModel.class);
+                genreModel = new Gson().fromJson(response, GenreModel.class);
 
             }
             else{
@@ -58,15 +54,16 @@ public class GetPopularMovies extends AsyncTask<Void, Void, PopularMoviesModel> 
             e.printStackTrace();
         }
 
-        return popularMovies;
+        return genreModel;
     }
 
     @Override
-    protected void onPostExecute(PopularMoviesModel popularMovies) {
-        delegate.proccessFinish(popularMovies);
+    protected void onPostExecute(GenreModel genres) {
+        delegate.proccessFinish(genres);
     }
 
     public interface AsyncResponse{
-        void proccessFinish(PopularMoviesModel popularMovies);
+        void proccessFinish(GenreModel genres);
     }
+
 }

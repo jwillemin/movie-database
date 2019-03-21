@@ -13,6 +13,7 @@ public class PopularMoviesModel {
     private int totalPages;
     private Result[] results;
 
+    public int getTotalPages() { return totalPages; }
     public Result[] getResults() {
         return results;
     }
@@ -45,4 +46,6 @@ class Result implements Serializable {
     public String getTitle() {return title;}
     public Date getReleaseDate() {return releaseDate;}
     public String getPosterPath() {return  posterPath;}
+    public String getOverview() {return overview;}
+    public int[] getGenreIds() {return genreIds;}
 }
