@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -23,7 +24,7 @@ public class MovieListActivity extends AppCompatActivity implements GetPopularMo
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTitle("Popular Movies");
+        setTitle(R.string.popular_movies_title);
         setContentView(R.layout.activity_movie_list);
 
         fetchMovies();
@@ -52,21 +53,21 @@ public class MovieListActivity extends AppCompatActivity implements GetPopularMo
             results.add(popularMovies.getResults()[i]);
         }
 
-        ListView movieList = findViewById(R.id.list_movies);
+        final ListView movieList = findViewById(R.id.list_movies);
         if (movieAdapter == null){
             movieAdapter = new MovieAdapter(MovieListActivity.this, R.layout.list_movie_item, results);
             movieList.setAdapter(movieAdapter);
         }
         else movieAdapter.notifyDataSetChanged();
 
-//        movieList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                Intent intent = new Intent(RisingStoriesActivity.this, WebActivity.class);
-//                intent.putExtra("url", posts.get(position).getUrl());
-//                startActivity(intent);
-//            }
-//        });
+        movieList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(MovieListActivity.this, MovieOverviewActivity.class);
+                intent.putExtra("details", (Serializable) results.get(position));
+                startActivity(intent);
+            }
+        });
 
         if (swipeRefreshLayout.isRefreshing()){
             swipeRefreshLayout.setRefreshing(false);

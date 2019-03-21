@@ -2,6 +2,7 @@ package com.example.jessi.moviedatabase;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.Date;
 
 public class PopularMoviesModel {
@@ -17,7 +18,7 @@ public class PopularMoviesModel {
     }
 }
 
-class Result {
+class Result implements Serializable {
     @SerializedName("vote_count")
     private int voteCount;
     private int id;

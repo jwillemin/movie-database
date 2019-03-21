@@ -17,6 +17,9 @@ import java.util.ArrayList;
 
 public class MovieAdapter extends ArrayAdapter<Result>{
 
+    public static final String BASE_URL = "https://image.tmdb.org/t/p";
+    public static final String SIZE = "/w154";
+
     Context context;
     MovieAdapter.ViewHolder viewHolder = null;
     int resource = 0;
@@ -49,7 +52,7 @@ public class MovieAdapter extends ArrayAdapter<Result>{
 
         viewHolder.title.setText(result.getTitle());
         viewHolder.releaseDate.setText(new SimpleDateFormat("MMMM d, yyyy").format(result.getReleaseDate()));
-        Picasso.get().load("https://image.tmdb.org/t/p/w154" + result.getPosterPath()).into(viewHolder.poster);
+        Picasso.get().load(BASE_URL + SIZE + result.getPosterPath()).into(viewHolder.poster);
 
         return view;
     }
