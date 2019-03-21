@@ -34,20 +34,13 @@ public class MovieListActivity extends AppCompatActivity implements GetPopularMo
         setTitle(R.string.popular_movies_title);
         setContentView(R.layout.activity_movie_list);
 
+        results = new ArrayList<>();
+
         fetchMovies();
         setSwipeRefreshListener();
         setPagingListener();
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        results = new ArrayList<>();
-        preLast = 0;
-        page = 1;
-        setSwipeRefreshListener();
-        setPagingListener();
-    }
 
     public void fetchMovies(){
         GetPopularMovies getPopularMovies = new GetPopularMovies(page++);
