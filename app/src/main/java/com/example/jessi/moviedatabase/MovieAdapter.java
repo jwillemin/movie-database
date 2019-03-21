@@ -7,8 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class MovieAdapter extends ArrayAdapter<Result>{
@@ -40,14 +44,20 @@ public class MovieAdapter extends ArrayAdapter<Result>{
 
         viewHolder = new MovieAdapter.ViewHolder();
         viewHolder.title = view.findViewById(R.id.title);
+        viewHolder.releaseDate = view.findViewById(R.id.release_date);
+        viewHolder.poster = view.findViewById(R.id.poster);
 
         viewHolder.title.setText(result.getTitle());
+        viewHolder.releaseDate.setText(new SimpleDateFormat("MMMM d, yyyy").format(result.getReleaseDate()));
+        Picasso.get().load("https://image.tmdb.org/t/p/w154" + result.getPosterPath()).into(viewHolder.poster);
 
         return view;
     }
 
     private class ViewHolder{
         TextView title;
+        TextView releaseDate;
+        ImageView poster;
     }
 
 }

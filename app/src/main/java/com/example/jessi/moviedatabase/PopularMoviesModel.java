@@ -42,4 +42,6 @@ class Result {
     private Date releaseDate;
 
     public String getTitle() {return title;}
+    public Date getReleaseDate() {return releaseDate;}
+    public String getPosterPath() {return  posterPath;}
 }
